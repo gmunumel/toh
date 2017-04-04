@@ -11,7 +11,7 @@ import { HeroService } from './hero.service';
   templateUrl: './hero-detail.component.html'
 })
 export class HeroDetailComponent implements OnInit {
-	@Input() hero: Hero;
+  @Input() hero: Hero;
 
   constructor(
     private heroService: HeroService,
@@ -23,6 +23,11 @@ export class HeroDetailComponent implements OnInit {
     this.route.params
       .switchMap((params: Params) => this.heroService.getHero(+params['id']))
       .subscribe(hero => this.hero = hero);
+  }
+
+  save(): void {
+    this.heroService.update(this.hero)
+      .then(() => this.goBack());
   }
 
   goBack(): void {
